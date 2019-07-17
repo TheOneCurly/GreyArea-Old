@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<script>
+    $(document).ready(function(){
+        var socket = io.connect('http://' + document.domain);
+        
+        socket.on('new_setpoint', function(msg){
+            $('#setpointTemp').val(msg.temp);
+        });
+        
+        socket.on('new_state', function(msg){ 
+            $('#state').text(msg.state);
+        });
+        
+        socket.on('new_temp', function(msg){ 
+            $('#currentTemp').text(msg.temp);
+        });
+        
+        socket.on('new_relay_state', function(msg){ 
+            $('#relayState').text(msg.relay);
+        });
+    
+        $('#updateButton').click(function(){
+            var setpoint = $('#setpointTemp').val()
+            alert("Updating setpoint to " + setpoint)
+            
+            socket.emit('update_setpoint', {temp: setpoint})
+        });
+        
+        $('#startButton').click(function(){
+            alert("Start")
+            socket.emit('new_state', {state: true})
+        });
+        
+        $('#stopButton').click(function(){
+            alert("Stop")
+            socket.emit('new_state', {state: false}) 
+        });
+    });
+    
+</script>
+{% endblock %}
+{% block title %}SousVide{% endblock %}
+{% block content %}
+    <h1>Sous Vide Controller</h1>
+    <div id="data">
+        <p>Setpoint Temp: 
+            <input type="number" min="70" max="200" step="1" id="setpointTemp"></input>&deg;F 
+            <a href="#" class="button" id="updateButton">Update</a>
+        </p>
+        <p>State: <span id="state">--</span></p> 
+        <p>Current Temp: <span id="currentTemp">--</span></p>
+        <p>Relay State: <span id="relayState">--</span></p>
+        <p>
+            <a href="#" class="button" id="startButton">Start</a>
+            <a href="#" class="button" id="stopButton">Stop</a>
+        </p>
+    </div>
+{% endblock %}

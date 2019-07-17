@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+{% endblock %}
+{% block title %}Page Not Found{% endblock %}
+{% block content %}
+    <h1>The page you requested could not be found</h1>
+    <div id="data">
+        <a href="index.html">Home</a>
+    </div>
+{% endblock %}

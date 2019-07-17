@@ -1,0 +1,30 @@
+# .gitignore
+*
+# keep track
+!README.md
+!LICENSE
+!.bashrc
+!.bash_aliases
+!.vimrc
+!/config/
+!/config/**
+!/www/
+!/www/greyarea/
+!/www/greyarea/*
+!/www/greyarea/css/
+!/www/greyarea/css/*
+!/www/greyarea/images/
+!/www/greyarea/images/*
+!/www/greyarea/js/
+!/www/greyarea/js/*
+!/www/greyarea/templates/
+!/www/greyarea/templates/*
+!/cpp/
+!/cpp/CMakeLists.txt
+!/cpp/src/
+!/cpp/src/*
+!/cpp/inc/
+!/cpp/inc/*
+!/cpp/build/
+!/cpp/build/__init__.py
+!.gitignore

@@ -14,7 +14,7 @@ public:
 
 private:
     static Control TemperatureController;
-//    static std::thread* ControlThread;
+    static std::thread* ControlThread;
 };
 
 #endif // PY_H

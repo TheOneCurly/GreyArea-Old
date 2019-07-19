@@ -29,9 +29,9 @@ public:
     float read(std::string sensor);
 
 private:
-    static const std::string DevicesPath;
-    static const std::string SensorPartialPath;
-    static const std::string ReadPath;
+    static constexpr const char* DevicesPath = "/sys/bus/w1/devices";
+    static constexpr const char* SensorPartialPath = "28-";
+    static constexpr const char*  ReadPath = "w1_slave";
 
     struct split{
       enum empties_t { empties_ok, no_empties };

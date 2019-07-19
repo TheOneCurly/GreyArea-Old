@@ -73,17 +73,17 @@ public:
 private:
     static const unsigned int MaxGPIO = 40;
 
-    static const std::string GPIOPath;
-    static const std::string ExportPath;
-    static const std::string DirectionPath;
-    static const std::string ValuePath;
-    static const std::string UnexportPath;
+    static constexpr const char* GPIOPath = "/sys/class/gpio";
+    static constexpr const char* ExportPath = "/export";
+    static constexpr const char* DirectionPath = "/direction";
+    static constexpr const char* ValuePath = "/value";
+    static constexpr const char* UnexportPath = "/unexport";
 
-    static const std::string DirectionOut;
-    static const std::string DirectionIn;
+    static constexpr const char* DirectionOut = "out";
+    static constexpr const char* DirectionIn = "in";
 
-    static const std::string StateHigh;
-    static const std::string StateLow;
+    static constexpr const char* StateHigh = "1";
+    static constexpr const char* StateLow = "0";
 
     std::string getDirFromPin(int pin);
 

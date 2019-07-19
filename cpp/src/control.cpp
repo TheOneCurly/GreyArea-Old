@@ -1,5 +1,7 @@
 #include "control.h"
 
+#define debug std::cout << "Control: "
+
 Control::Control(int relayPin) : m_relayPin(relayPin){
     m_gpio.registerGPIO(m_relayPin);
     m_gpio.setDirection(m_relayPin, GPIO::Out);
@@ -25,13 +27,11 @@ void Control::run(){
     while(true){
         if(Data::GetEnabled()){
             // Get current setpoint
-            Converter.asInt = Data::GetCurrentSetpoint();
-            currentSetpoint = Converter.asFloat;
+            currentSetpoint = Data::GetCurrentSetpoint();
 
             // Read current temperature
             currentTemp = m_sensor.read(m_sensorID);
-            Converter.asFloat = currentTemp;
-            Data::SetCurrentTemperature(Converter.asInt);
+            Data::SetCurrentTemperature(currentTemp);
 
             // Calculate P
             currentError = currentSetpoint - currentTemp;

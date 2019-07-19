@@ -1,15 +1,6 @@
 #include "gpio.h"
 
-const std::string GPIO::GPIOPath = "/sys/class/gpio";
-const std::string GPIO::ExportPath = "/export";
-const std::string GPIO::DirectionPath = "/direction";
-const std::string GPIO::ValuePath = "/value";
-const std::string GPIO::UnexportPath = "/unexport";
-
-const std::string GPIO::DirectionOut = "out";
-const std::string GPIO::DirectionIn = "in";
-const std::string GPIO::StateHigh = "1";
-const std::string GPIO::StateLow = "0";
+#define debug std::cout << "GPIO: "
 
 GPIO::GPIO() : m_registeredPins(MaxGPIO, 0){}
 
@@ -26,8 +17,10 @@ bool GPIO::registerGPIO(unsigned int pin){
     bool ok = false;
 
     if(pin < MaxGPIO){
+        std::string path(GPIOPath);
+        path.append(ExportPath);
         std::ofstream registerStream;
-        registerStream.open((GPIOPath + ExportPath).c_str());
+        registerStream.open(path);
         registerStream << pin;
         registerStream.close();
 
@@ -43,8 +36,12 @@ bool GPIO::registerGPIO(unsigned int pin){
 
 void GPIO::setState(unsigned int pin, GPIO::State state){
     if(isRegistered(pin)){
+        std::string path(GPIOPath);
+        path.append(getDirFromPin(pin));
+        path.append(ValuePath);
+
         std::ofstream stateStream;
-        stateStream.open((GPIOPath + getDirFromPin(pin) + ValuePath).c_str());
+        stateStream.open((path));
         if(state == High){
             stateStream << StateHigh;
         }else{
@@ -53,17 +50,18 @@ void GPIO::setState(unsigned int pin, GPIO::State state){
         stateStream.close();
 
 //        sleep(1);
-
-    }else{
-        std::cout << "Pin " << pin << " is not registered" << std::endl;
     }
 }
 
 GPIO::State GPIO::getState(unsigned int pin){
     State state = Low;
     if(isRegistered(pin)){
+        std::string path(GPIOPath);
+        path.append(getDirFromPin(pin));
+        path.append(ValuePath);
+
         std::ifstream stateStream;
-        stateStream.open((GPIOPath + getDirFromPin(pin) + ValuePath).c_str());
+        stateStream.open(path);
 
         std::string stateString;
         stateStream >> stateString;
@@ -86,8 +84,11 @@ bool GPIO::isRegistered(unsigned int pin){
 
 void GPIO::unregister(unsigned int pin){
     if(pin < MaxGPIO){
+        std::string path(GPIOPath);
+        path.append(UnexportPath);
+
         std::ofstream unregisterStream;
-        unregisterStream.open((GPIOPath + UnexportPath).c_str());
+        unregisterStream.open(path);
         unregisterStream << pin;
         unregisterStream.close();
 
@@ -96,8 +97,12 @@ void GPIO::unregister(unsigned int pin){
 }
 
 void GPIO::setDirection(int pin, GPIO::Direction direction){
+    std::string path(GPIOPath);
+    path.append(getDirFromPin(pin));
+    path.append(DirectionPath);
+
     std::ofstream directionStream;
-    directionStream.open((GPIOPath + getDirFromPin(pin) + DirectionPath).c_str());
+    directionStream.open(path);
     if(direction == In){
         directionStream << DirectionIn;
     }else{

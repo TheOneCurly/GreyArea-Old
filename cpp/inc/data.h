@@ -8,20 +8,20 @@ public:
     static void SetRelayState(bool relayState);
     static bool GetRelayState();
 
-    static void SetCurrentTemperature(int currentTemperature);
-    static int GetCurrentTemperature();
+    static void SetCurrentTemperature(float currentTemperature);
+    static float GetCurrentTemperature();
 
     static void SetEnabled(bool enabled);
     static bool GetEnabled();
 
-    static void SetCurrentSetpoint(int currentSetpoint);
-    static int GetCurrentSetpoint();
+    static void SetCurrentSetpoint(float currentSetpoint);
+    static float GetCurrentSetpoint();
 
 private:
     static std::atomic_bool RelayState;
-    static std::atomic_int CurrentTemperature;
+    static std::atomic<float> CurrentTemperature;
     static std::atomic_bool Enabled;
-    static std::atomic_int CurrentSetpoint;
+    static std::atomic<float> CurrentSetpoint;
 };
 
 #endif // DATA_H

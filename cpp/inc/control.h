@@ -11,11 +11,6 @@
 
 class Control{
 public:
-    union {
-        float asFloat;
-        uint32_t asInt;
-    } Converter;
-
     Control(int relayPin);
     void run();
 

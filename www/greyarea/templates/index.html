@@ -23,19 +23,19 @@
     
         $('#updateButton').click(function(){
             var setpoint = $('#setpointTemp').val()
-            alert("Updating setpoint to " + setpoint)
-            
             socket.emit('update_setpoint', {temp: setpoint})
         });
         
-        $('#startButton').click(function(){
-            alert("Start")
+        $('#startButton').click(function(){ 
             socket.emit('new_state', {state: true})
         });
         
         $('#stopButton').click(function(){
-            alert("Stop")
             socket.emit('new_state', {state: false}) 
+        });
+
+        $('#refreshButton').click(function(){
+            socket.emit('request_update') 
         });
     });
     
@@ -55,6 +55,9 @@
         <p>
             <a href="#" class="button" id="startButton">Start</a>
             <a href="#" class="button" id="stopButton">Stop</a>
+        </p>
+        <p>
+            <a href="#" class="button" id="refreshButton">Refresh</a>
         </p>
     </div>
 {% endblock %}

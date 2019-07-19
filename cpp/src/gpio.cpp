@@ -48,8 +48,6 @@ void GPIO::setState(unsigned int pin, GPIO::State state){
             stateStream << StateLow;
         }
         stateStream.close();
-
-//        sleep(1);
     }
 }
 

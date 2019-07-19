@@ -12,6 +12,7 @@
 class Control{
 public:
     Control(int relayPin);
+    ~Control();
     void run();
 
 private:

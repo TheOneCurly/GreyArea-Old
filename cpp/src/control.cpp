@@ -7,6 +7,12 @@ Control::Control(int relayPin) : m_relayPin(relayPin){
     m_gpio.setDirection(m_relayPin, GPIO::Out);
 
     m_sensorID = m_sensor.discover();
+
+    debug << "Making a control object" << std::endl;
+}
+
+Control::~Control(){
+    debug << "Control Being destroyed" << std::endl;
 }
 
 void Control::run(){
@@ -33,6 +39,9 @@ void Control::run(){
             currentTemp = m_sensor.read(m_sensorID);
             Data::SetCurrentTemperature(currentTemp);
 
+//            debug << "Setpoint: " << currentSetpoint << std::endl;
+//            debug << "Temp: " << currentTemp << std::endl;
+
             // Calculate P
             currentError = currentSetpoint - currentTemp;
 
@@ -54,6 +63,8 @@ void Control::run(){
             }else if(pidResult < -500){
                 pidResult = -500;
             }
+
+//            debug << "PID: " << pidResult << std::endl;
 
             // Set relay
             if(pidResult > 0){

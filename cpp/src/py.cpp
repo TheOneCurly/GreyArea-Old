@@ -4,11 +4,15 @@ Control Py::TemperatureController(17);
 std::thread* Py::ControlThread = nullptr;
 
 void Py::Init(){
-    ControlThread = new std::thread(&Control::run, &TemperatureController);
+    if(ControlThread == nullptr){
+        ControlThread = new std::thread(&Control::run, &TemperatureController);
+    }
 }
 
 void Py::Stop(){
-    ControlThread->join();
+    if(ControlThread != nullptr){
+        ControlThread->join();
+    }
 }
 
 PYBIND11_MODULE(SousVide, m) {

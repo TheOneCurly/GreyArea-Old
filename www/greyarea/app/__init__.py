@@ -8,4 +8,4 @@ socketio = SocketIO(app)
 py = SousVide.Py
 data = SousVide.Data
 
-from app import routes, models
+from app import routes

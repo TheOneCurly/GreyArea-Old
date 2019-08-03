@@ -1,6 +1,6 @@
 from flask import render_template, request
 from flask_socketio import emit
-from app import app, py, data
+from app import app, socketio, py, data
 
 with app.test_request_context():
     py.Init()

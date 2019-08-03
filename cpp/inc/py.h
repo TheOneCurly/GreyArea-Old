@@ -1,6 +1,7 @@
 #ifndef PY_H
 #define PY_H
 
+#include <iostream>
 #include <thread>
 #include <pybind11/pybind11.h>
 
@@ -9,6 +10,7 @@
 
 class Py {
 public:
+    Py();
     static void Init();
     static void Stop();
 

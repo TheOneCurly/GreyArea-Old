@@ -1,7 +1,13 @@
 #include "py.h"
 
+#define debug std::cout << "Py: "
+
 Control Py::TemperatureController(17);
 std::thread* Py::ControlThread = nullptr;
+
+Py::Py(){
+    debug << "Creating a Py" << std::endl;
+}
 
 void Py::Init(){
     if(ControlThread == nullptr){

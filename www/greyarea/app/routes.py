@@ -1,15 +1,9 @@
-from flask import Flask, render_template, request
-from flask_socketio import SocketIO, emit
-from threading import Thread, Event
-import SousVide
+from flask import render_template, request
+from flask_socketio import emit
+from app import app, py, data
 
-app = Flask(__name__)
-socketio = SocketIO(app)
-
-py = SousVide.Py
-data = SousVide.Data
-
-py.Init()
+with app.test_request_context():
+    py.Init()
 
 @app.route('/')
 def index():
@@ -53,7 +47,4 @@ def FtoC(tempF):
 def CtoF(tempC):
     tempF = (tempC * (9/5)) + 32
     return tempF
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', use_reloader=False)
 

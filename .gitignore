@@ -12,14 +12,8 @@
 !/www/
 !/www/greyarea/
 !/www/greyarea/*
-!/www/greyarea/css/
-!/www/greyarea/css/*
-!/www/greyarea/images/
-!/www/greyarea/images/*
-!/www/greyarea/js/
-!/www/greyarea/js/*
-!/www/greyarea/templates/
-!/www/greyarea/templates/*
+!/www/greyarea/app/
+!/www/greyarea/app/**
 !/cpp/
 !/cpp/CMakeLists.txt
 !/cpp/src/
